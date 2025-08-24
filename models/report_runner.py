@@ -102,6 +102,7 @@ class ReplicaReportRunner(models.Model):
                 _logger.info("Replica lag %s s > %s s - using primary.", lag, max_lag)
                 return self._run_on_primary(limit)
 
+            _logger.info("Running report on replica (lag %s s <= %s s).", lag, max_lag)
             with conn.cursor(cursor_factory=RealDictCursor) as cur:
                 cur.execute(
                     """
